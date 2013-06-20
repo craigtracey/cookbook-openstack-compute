@@ -99,13 +99,13 @@ else  # install from source
   end
 end
 
-rabbit_server_role = node["openstack"]["compute"]["rabbit_server_chef_role"]
-rabbit_info = config_by_role rabbit_server_role, "queue"
-rabbit_port = rabbit_info["port"]
-rabbit_ipaddress = rabbit_info["host"]
-rabbit_user = node["openstack"]["compute"]["rabbit"]["username"]
-rabbit_pass = user_password "rabbit"
-rabbit_vhost = node["openstack"]["compute"]["rabbit"]["vhost"]
+messaging_service_type = node["openstack"]["mq"]["service_type"]
+messaging_host = node["openstack"]["mq"]["host"]
+case messaging_service_type
+when "rabbitmq"
+  rabbit_info = node["openstack"]["mq"][messaging_service_type]
+  rabbit_password = service_password messaging_service_type
+end
 
 # nova db
 compute_db_user = node["openstack"]["compute"]["db"]["username"]
@@ -144,11 +144,9 @@ template ceilometer_conf do
     :database_connection => ceilo_db_uri,
     :image_endpoint_host => image_endpoint.host,
     :identity_endpoint => identity_admin_endpoint,
-    :rabbit_ipaddress => rabbit_ipaddress,
-    :rabbit_pass => rabbit_pass,
-    :rabbit_port => rabbit_port,
-    :rabbit_user => rabbit_user,
-    :rabbit_virtual_host=> rabbit_vhost,
+    :messaging_host => messaging_host,
+    :rabbit_info => rabbit_info,
+    :rabbit_password => rabbit_password,
     :service_pass => service_pass,
     :service_tenant_name => service_tenant,
     :service_user => service_user,

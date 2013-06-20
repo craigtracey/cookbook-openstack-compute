@@ -22,7 +22,6 @@ The following cookbooks are dependencies:
 * openstack-common
 * openstack-identity
 * openstack-image
-* rabbitmq
 * selinux (Fedora)
 * sysctl
 * yum
@@ -70,7 +69,7 @@ nova-cert
 nova-common
 ----
 - May include recipe `selinux` (Fedora)
-- Builds the basic nova.conf config file with details of the rabbitmq, mysql, glance and keystone servers
+- Builds the basic nova.conf config file with details of the messaging, database, image and identity servers
 - Builds a openrc file for root with appropriate environment variables to interact with the nova client CLI
 
 nova-setup
@@ -97,8 +96,6 @@ Openstack Compute attributes are in the attribute namespace ["openstack"]["compu
 * `openstack["compute"]["user"]` - User nova services run as
 * `openstack["compute"]["group"]` - Group nova services run as
 * `openstack["compute"]["db"]["username"]` - Username for nova database access
-* `openstack["compute"]["rabbit"]["username"]` - Username for nova rabbit access
-* `openstack["compute"]["rabbit"]["vhost"]` - The rabbit vhost to use
 * `openstack["compute"]["service_tenant_name"]` - Tenant name used by nova when interacting with keystone
 * `openstack["compute"]["service_user"]` - User name used by nova when interacting with keystone
 * `openstack["compute"]["service_role"]` - User role used by nova when interacting with keystone
