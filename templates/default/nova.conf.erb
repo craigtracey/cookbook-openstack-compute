@@ -15,12 +15,14 @@ log_config = /etc/openstack/logging.conf
 state_path=/var/lib/nova
 lock_path=/var/lock/nova
 
+<% if @rabbit_info -%>
 ##### RABBITMQ #####
-rabbit_userid=<%= @rabbit_user %>
+rabbit_userid=<%= @rabbit_info['user'] %>
 rabbit_password=<%= @rabbit_password %>
-<%= "rabbit_port=#{@rabbit_port}" if @rabbit_port %>
-rabbit_host=<%= @rabbit_ipaddress %>
-rabbit_virtual_host=<%= @rabbit_virtual_host %>
+rabbit_port=<%= @rabbit_info['port']%>
+rabbit_host=<%= @messaging_host %>
+rabbit_virtual_host=<%= @rabbit_info['vhost'] %>
+<% end -%>
 
 ##### SCHEDULER #####
 # scheduler_manager=nova.scheduler.manager.SchedulerManager

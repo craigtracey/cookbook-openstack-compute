@@ -19,10 +19,6 @@ require "chefspec"
 
 def compute_stubs
   ::Chef::Recipe.any_instance.stub(:config_by_role).
-    with("rabbitmq-server", "queue").and_return(
-      { 'host' => 'rabbit-host', 'port' => 'rabbit-port' }
-    )
-  ::Chef::Recipe.any_instance.stub(:config_by_role).
     with("os-identity").and_return(
       {
         'openstack' => {
@@ -40,6 +36,8 @@ def compute_stubs
   ::Chef::Recipe.any_instance.stub(:user_password).and_return String.new
   ::Chef::Recipe.any_instance.stub(:service_password).with("openstack-compute").
     and_return "nova-pass"
+  ::Chef::Recipe.any_instance.stub(:service_password).with("rabbitmq").
+    and_return "rabbitmq-pass"
   ::Chef::Recipe.any_instance.stub(:memcached_servers).and_return []
 end
 
