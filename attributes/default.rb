@@ -288,3 +288,6 @@ end
 
 # plugins
 default["openstack"]["compute"]["plugins"] = nil
+
+# the default config_dir to use (ie. /etc/nova/conf.d)
+default["openstack"]["compute"]["config_dir"] = "/etc/nova/conf.d"
