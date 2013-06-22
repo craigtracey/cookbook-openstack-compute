@@ -13,6 +13,7 @@ log_config = /etc/openstack/logging.conf
 <% end %>
 state_path=/var/lib/nova
 lock_path=/var/lock/nova
+config_dir=<%= node["openstack"]["compute"]["config_dir"] %>
 
 ##### RABBITMQ #####
 rabbit_userid=<%= @rabbit_user %>
