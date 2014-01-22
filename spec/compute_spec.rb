@@ -10,14 +10,6 @@ describe "openstack-compute::compute" do
 
     expect_runs_nova_common_recipe
 
-    it "runs api-metadata recipe" do
-      expect(@chef_run).to include_recipe "openstack-compute::api-metadata"
-    end
-
-    it "runs network recipe" do
-      expect(@chef_run).to include_recipe "openstack-compute::network"
-    end
-
     # stubbing the run_context properly is non-trivial, fix with ChefSpec 3.0
     # it "doesn't run network recipe with openstack-network::server" do
     #   chef_run = ::ChefSpec::Runner.new ::UBUNTU_OPTS
